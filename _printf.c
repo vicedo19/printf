@@ -6,6 +6,7 @@
 /**
  * str_length - calculate the length of string.
  * @str: the string to be considered.
+ *
  * Return: string length.
  */
 int str_length(char *str)
@@ -17,6 +18,34 @@ int str_length(char *str)
 		i++;
 	}
 	return (i);
+}
+
+/**
+ * print_char - to print characters.
+ * @ch: character to be printed.
+ *
+ * Return: Nothing.
+ */
+void print_char(int ch)
+{
+	char *separator = "";
+
+	write(1, separator, 1);
+	write(1, &ch, 1);
+}
+
+/**
+ * print_string - to print strings.
+ * @str: the string to be printed.
+ *
+ * Return: Nothing.
+ */
+void print_string(char *str)
+{
+	char *separator = "";
+
+	write(1, separator, 1);
+	write(1, str, str_length(str));
 }
 
 /**
@@ -43,13 +72,11 @@ int _printf(const char *format, ...)
 				{
 					case 'c':
 						ch = va_arg(print, int);
-						write(1, separator, 1);
-						write(1, &ch, 1);
+						print_char(ch);
 						break;
 					case 's':
 						str = va_arg(print, char*);
-						write(1, separator, 1);
-						write(1, str, str_length(str));
+						print_string(str);
 						break;
 					case '%':
 						write(1, separator, 1);
