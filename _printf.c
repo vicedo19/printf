@@ -28,9 +28,6 @@ int str_length(char *str)
  */
 void print_char(int ch)
 {
-	char *separator = "";
-
-	write(1, separator, 1);
 	write(1, &ch, 1);
 }
 
@@ -42,10 +39,13 @@ void print_char(int ch)
  */
 void print_string(char *str)
 {
-	char *separator = "";
+	size_t length;
 
-	write(1, separator, 1);
-	write(1, str, str_length(str));
+	if (str)
+	{
+		length = str_length(str);
+		write(1, str, length);
+	}
 }
 
 /**
@@ -56,41 +56,44 @@ void print_string(char *str)
  */
 int _printf(const char *format, ...)
 {
-	char *separator = "", *str;
-	int i = 0, ch;
+	char *str;
+	int ch, printed_chars = 0;
 	va_list print;
 
 	va_start(print, format);
-	if (format)
-	{
-		while (format[i])
+		while (*format)
 		{
-			if (format[i] == '%')
+			if (*format == '%')
 			{
-				i++;
-				switch (format[i])
+				format++;
+				switch (*format)
 				{
 					case 'c':
 						ch = va_arg(print, int);
 						print_char(ch);
+						printed_chars++;
 						break;
 					case 's':
 						str = va_arg(print, char*);
 						print_string(str);
+						printed_chars += str_length(str);
 						break;
 					case '%':
-						write(1, separator, 1);
 						write(1, "%", 1);
+						printed_chars++;
 						break;
 					default:
 						break;
 				}
-				separator = ", ";
 			}
-			i++;
+			else
+			{
+				write(1, format, 1);
+				printed_chars++;
+			}
+		format++;
 		}
-	}
 	write(1, "\n", 1);
 	va_end(print);
-	return (i);
+	return (printed_chars);
 }
