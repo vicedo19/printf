@@ -17,8 +17,4 @@ void print_string(char *str)
 		length = str_length(str);
 		write(1, str, length);
 	}
-	if (str == NULL)
-	{
-		write(1, "(null)", 6);
-	}
 }
