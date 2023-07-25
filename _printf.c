@@ -32,12 +32,12 @@ int _printf(const char *format, ...)
 					str = va_arg(print, char*);
 					if (str == NULL)
 					{
-					write(1, null, str_length(null));
-					printed_chars += str_length(null);
+					write(1, null, 6);
+					printed_chars += 6;
 					}
 					else
 					{
-					print_string(str);
+					write(1, str, str_length(str));
 					printed_chars += str_length(str);
 					}
 					break;
