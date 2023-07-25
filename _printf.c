@@ -31,7 +31,7 @@ int _printf(const char *format, ...)
 				case 's':
 					str = va_arg(print, char*);
 					output = ((str == NULL) ? null : str);
- 					write(1, output, str_length(output));
+					write(1, output, str_length(output));
 					printed_chars += str_length(output);
 					break;
 				case '%':
