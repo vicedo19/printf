@@ -11,41 +11,42 @@
  */
 int _printf(const char *format, ...)
 {
-	char *str;
+	char *str, *output, *null = "(null)";
 	int ch, printed_chars = 0;
 	va_list print;
 
 	va_start(print, format);
 		while (*format)
 		{
-			if (*format == '%')
+		if (*format == '%')
+		{
+			format++;
+			switch (*format)
 			{
-				format++;
-				switch (*format)
-				{
-					case 'c':
-						ch = va_arg(print, int);
-						print_char(ch);
-						printed_chars++;
-						break;
-					case 's':
-						str = va_arg(print, char*);
-						print_string(str);
-						printed_chars += str_length(str);
-						break;
-					case '%':
-						write(1, "%", 1);
-						printed_chars++;
-						break;
-					default:
-						break;
-				}
+				case 'c':
+					ch = va_arg(print, int);
+					print_char(ch);
+					printed_chars++;
+					break;
+				case 's':
+					str = va_arg(print, char*);
+					output = ((str == NULL) ? null : str);
+					write(1, output, str_length(output));
+					printed_chars += str_length(output);
+					break;
+				case '%':
+					write(1, "%", 1);
+					printed_chars++;
+					break;
+				default:
+					break;
 			}
-			else
-			{
-				write(1, format, 1);
-				printed_chars++;
-			}
+		}
+		else
+		{
+			write(1, format, 1);
+			printed_chars++;
+		}
 		format++;
 		}
 	va_end(print);
