@@ -11,7 +11,7 @@
  */
 int _printf(const char *format, ...)
 {
-	char *str, *null = "(null)";
+	char *str, *output, *null = "(null)";
 	int ch, printed_chars = 0;
 	va_list print;
 
@@ -30,16 +30,9 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					str = va_arg(print, char*);
-					if (str == NULL)
-					{
-					write(1, null, 6);
-					printed_chars += 6;
-					}
-					else
-					{
-					write(1, str, str_length(str));
-					printed_chars += str_length(str);
-					}
+					output = ((str == NULL) ? null : str);
+					write(1, output, str_length(output));
+					printed_chars += str_length(output);
 					break;
 				case '%':
 					write(1, "%", 1);
