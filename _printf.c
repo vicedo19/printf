@@ -93,6 +93,6 @@ int _printf(const char *format, ...)
 			}
 		format++;
 		}
-	va_end(print);
+	va_end(pint);
 	return (printed_chars);
 }
