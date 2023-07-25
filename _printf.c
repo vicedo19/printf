@@ -93,7 +93,6 @@ int _printf(const char *format, ...)
 			}
 		format++;
 		}
-	write(1, "\n", 1);
 	va_end(print);
 	return (printed_chars);
 }
