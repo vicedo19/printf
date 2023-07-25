@@ -94,7 +94,7 @@ int _printf(const char *format, ...)
 		format++;
 		}
 <<<<<<< HEAD
-	va_end(pint);
+	va_end(print);
 =======
 	va_end(print);
 >>>>>>> feargod_printf
