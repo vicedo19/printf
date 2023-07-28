@@ -6,7 +6,7 @@
  *
  * Return: Nothing.
  */
-void print_char(int ch)
+int print_char(int ch)
 {
-	write(1, &ch, 1);
+	return (write(1, &ch, 1));
 }
