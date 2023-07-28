@@ -10,7 +10,7 @@
  */
 int print_string(char *str)
 {
-	if(str == NULL)
+	if (str == NULL)
 	{
 		return (write(1, "(null)", 6));
 	}
