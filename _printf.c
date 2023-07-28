@@ -11,42 +11,45 @@
  */
 int _printf(const char *format, ...)
 {
-	char *str, *output, *null = "(null)";
-	int ch, printed_chars = 0;
+	char *str;
+	int ch, num, printed_chars = 0;
 	va_list print;
 
 	va_start(print, format);
 		while (*format)
 		{
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
+			if (*format == '%')
 			{
-				case 'c':
-					ch = va_arg(print, int);
-					print_char(ch);
-					printed_chars++;
-					break;
-				case 's':
-					str = va_arg(print, char*);
-					output = ((str == NULL) ? null : str);
-					write(1, output, str_length(output));
-					printed_chars += str_length(output);
-					break;
-				case '%':
-					write(1, "%", 1);
-					printed_chars++;
-					break;
-				default:
-					break;
+				format++;
+				switch (*format)
+				{
+					case 'd':
+					case 'i':
+						num = va_arg(print, int);
+						printed_chars += print_integer(num);
+						break;
+					case 'c':
+						ch = va_arg(print, int);
+						printed_chars += print_char(ch);
+						break;
+					case 's':
+						str = va_arg(print, char*);
+						printed_chars += print_string(str);
+						break;
+					case '%':
+						printed_chars += print_percent();
+						break;
+
+					default:
+						printed_chars += write(1, format - 1, 1);
+						printed_chars += write(1, format, 1);
+						break;
+				}
 			}
-		}
-		else
-		{
-			write(1, format, 1);
-			printed_chars++;
-		}
+			else
+			{
+				printed_chars += write(1, format, 1);
+			}
 		format++;
 		}
 	va_end(print);

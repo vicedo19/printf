@@ -6,15 +6,13 @@
  * print_string - to print strings.
  * @str: the string to be printed.
  *
- * Return: Nothing.
+ * Return: printed character.
  */
-void print_string(char *str)
+int print_string(char *str)
 {
-	size_t length;
-
-	if (str)
+	if(str == NULL)
 	{
-		length = str_length(str);
-		write(1, str, length);
+		return (write(1, "(null)", 6));
 	}
+	return (write(1, str, str_length(str)));
 }
