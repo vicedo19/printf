@@ -23,8 +23,7 @@ int _printf(const char *format, ...)
 				format++;
 				switch (*format)
 				{
-					case 'd':
-					case 'i':
+					case 'd': case 'i':
 						num = va_arg(print, int);
 						printed_chars += print_integer(num);
 						break;
@@ -47,9 +46,7 @@ int _printf(const char *format, ...)
 				}
 			}
 			else
-			{
 				printed_chars += write(1, format, 1);
-			}
 		format++;
 		}
 	va_end(print);
